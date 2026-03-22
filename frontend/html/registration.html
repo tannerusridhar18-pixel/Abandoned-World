@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Abandoned World</title>
+    <script src="../js/signup.js"></script>
+</head>
+<body>
+<center>
+    <div class="wrapper">
+        <div class="container">
+            <header>
+                <table width="100%" align="center" cellpadding="0" cellspacing="2">
+                    <tr>
+                        <th width="30%" align="center">
+                            <h1>Welcome to Abandoned World</h1>
+                        </th>
+                    </tr>
+                </table>
+            </header>
+        </div>
+
+        <div class="container1">
+            <div class="sidebar1"></div>
+            <div class="container2">
+                <main>
+                    <h2 class="form-title">Sign Up</h2>
+                    <p id="message" class="message"></p>
+
+                    <form name="f2" onsubmit="return validatesignup()">
+                        <table width="30%" align="center">
+                            <tr>
+                                <td align="right">Email:</td>
+                                <td>
+                                    <input type="email" id="email" placeholder="email">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">Password:</td>
+                                <td>
+                                    <input type="password" id="password" placeholder="password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">Confirm Password:</td>
+                                <td>
+                                    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+                                </td>
+                            </tr>
+                            <tr><td><br></td></tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <input type="submit" value="submit">
+                                    <input type="reset" value="reset">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2">
+                                    <p>
+                                        Already have an account?
+                                        <a href="login.html">Login</a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+</center>
+</body>
+</html>

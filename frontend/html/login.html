@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Abandoned World - Login</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/login.js" defer></script>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="container">
+            <header>
+                <table width="100%" align="center" cellpadding="0" cellspacing="2">
+                    <tr>
+                        <th width="20%" align="center">
+                            <h1>Welcome Back to Abandoned World</h1>
+                        </th>
+                    </tr>
+                </table>
+            </header>
+        </div>
+
+        <div class="container1">
+            <div class="sidebar1"></div>
+
+            <div class="container2">
+                <main>
+
+                    <h2 class="form-title">Login</h2>
+                    <p id="message" class="message"></p>
+
+                    <form name="f1" onsubmit="return validateLogin()">
+                        <table width="25%" align="center">
+
+                            <tr>
+                                <td align="right">Email:</td>
+                                <td>
+                                    <input type="email" id="email" placeholder="Enter email" required>
+                                </td>
+                            </tr>
+
+                            <tr><td colspan="2"><br></td></tr>
+
+                            <tr>
+                                <td align="right">Password:</td>
+                                <td>
+                                    <input type="password" id="password" placeholder="Enter your password" required>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" align="right">
+                                    <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                               <td colspan="2" align="center">
+                                   <div class="btn-group">
+                                       <input type="submit" value="Login" class="btn-primary">
+                                       <input type="reset" value="Reset" class="btn-secondary">
+                                   </div>
+                               </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <p>
+                                        Don't have an account?
+                                        <a href="registration.html">Sign up</a>
+                                    </p>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </form>
+
+                </main>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

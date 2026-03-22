@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover mysterious and abandoned places around the world">
+    <title>Abandoned World - Explore the Forgotten</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div class="particles" id="particles"></div>
+
+    <header class="navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                <span class="logo-icon">🏚️</span>
+                <span class="logo-text">ABANDONED WORLD</span>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="explore.html" class="nav-link">
+                        <span class="nav-icon">🗺️</span>
+                        <span>Explore</span>
+                    </a></li>
+                    <li><a href="profile.html" class="nav-link">
+                        <span class="nav-icon">👤</span>
+                        <span>Profile</span>
+                    </a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-box">
+
+            <div class="hero-content">
+                <h1 class="hero-title">Discover the Forgotten</h1>
+                <p class="hero-subtitle">Explore mysterious abandoned places frozen in time</p>
+            </div>
+
+            <div class="hero-image-container">
+                <div class="image-overlay"></div>
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+                     alt="Abandoned Place"
+                     class="hero-image"
+                     loading="lazy">
+                <div class="image-glow"></div>
+            </div>
+
+            <button class="explore-btn">
+                <span class="btn-text">START EXPLORING</span>
+                <span class="btn-icon">→</span>
+            </button>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text"
+                           id="searchInput"
+                           placeholder="Discover mysterious places..."
+                           autocomplete="off"
+                           aria-label="Search places">
+                    <button onclick="searchPlaces()" class="search-btn" aria-label="Search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="search-suggestions" id="searchSuggestions"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" data-count="1247">0</div>
+                <div class="stat-label">Places Discovered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="89">0</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="15000">0</div>
+                <div class="stat-label">Explorers</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="interest-section">
+        <div class="section-header">
+            <h2>Places You Are INTERESTED in</h2>
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="recent">Recent</button>
+                <button class="filter-btn" data-filter="popular">Popular</button>
+            </div>
+        </div>
+
+        <div id="placesContainer" class="places-container"></div>
+
+        <div class="load-more-container">
+            <button class="load-more-btn" id="loadMoreBtn" style="display: none;">
+                <span>Load More Places</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Loading Abandoned World...</p>
+        </div>
+    </div>
+
+    <script src="../js/home.js"></script>
+</body>
+</html>

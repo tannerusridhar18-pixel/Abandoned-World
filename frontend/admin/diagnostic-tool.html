@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Diagnostic Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 40px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #00ff9d;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .section {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .section h2 {
+            color: #00d4ff;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #141414;
+            border-radius: 6px;
+        }
+        
+        .status-icon {
+            font-size: 20px;
+        }
+        
+        .status-label {
+            font-weight: 600;
+            color: #aaa;
+            min-width: 120px;
+        }
+        
+        .status-value {
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+        
+        .success { color: #00ff9d; }
+        .error { color: #ff4d6d; }
+        .warning { color: #ffb800; }
+        
+        button {
+            padding: 12px 24px;
+            background: #00ff9d;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #00d487;
+        }
+        
+        button.danger {
+            background: #ff4d6d;
+            color: #fff;
+        }
+        
+        button.danger:hover {
+            background: #ff3355;
+        }
+        
+        .code-block {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid;
+        }
+        
+        .alert.info {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: #00d4ff;
+        }
+        
+        .alert.error {
+            background: rgba(255, 77, 109, 0.1);
+            border-color: #ff4d6d;
+        }
+        
+        .alert.success {
+            background: rgba(0, 255, 157, 0.1);
+            border-color: #00ff9d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Admin Login Diagnostic Tool</h1>
+        
+        <div class="section">
+            <h2>📦 LocalStorage Check</h2>
+            <div id="storageStatus"></div>
+            <button onclick="checkStorage()">🔄 Refresh Check</button>
+            <button onclick="clearStorage()" class="danger">🗑️ Clear All Storage</button>
+        </div>
+        
+        <div class="section">
+            <h2>🔑 Test Login</h2>
+            <div style="margin-bottom: 15px;">
+                <input type="email" id="testEmail" placeholder="Email" style="width: 100%; padding: 12px; background: #141414; border: 1px solid #333; border-radius: 6px; color: #fff; margin-bottom: 10px;">
+                <input type="password" id="testPassword" placeholder="Password" style="width: 100%; padding: 12px; background: #141414; border: 1px solid #333; border-radius: 6px; color: #fff; margin-bottom: 10px;">
+                <button onclick="testLogin()">🚀 Test Login</button>
+            </div>
+            <div id="loginResult"></div>
+        </div>
+        
+        <div class="section">
+            <h2>📋 Manual Storage Setup</h2>
+            <p style="color: #aaa; margin-bottom: 15px;">Manually set values if login isn't working:</p>
+            <input type="text" id="manualToken" placeholder="JWT Token" style="width: 100%; padding: 12px; background: #141414; border: 1px solid #333; border-radius: 6px; color: #fff; margin-bottom: 10px;">
+            <input type="text" id="manualRole" placeholder="Role (e.g., ADMIN or ROLE_ADMIN)" style="width: 100%; padding: 12px; background: #141414; border: 1px solid #333; border-radius: 6px; color: #fff; margin-bottom: 10px;">
+            <input type="email" id="manualEmail" placeholder="Email" style="width: 100%; padding: 12px; background: #141414; border: 1px solid #333; border-radius: 6px; color: #fff; margin-bottom: 10px;">
+            <button onclick="setManualStorage()">💾 Save to Storage</button>
+        </div>
+        
+        <div class="section">
+            <h2>🧪 Test API Connection</h2>
+            <button onclick="testAPI()">📡 Test Backend Connection</button>
+            <div id="apiResult"></div>
+        </div>
+        
+        <div class="section">
+            <h2>✅ Actions</h2>
+            <button onclick="goToAdmin()">🏠 Go to Admin Panel</button>
+            <button onclick="goToLogin()">🔐 Go to Login Page</button>
+        </div>
+    </div>
+
+    <script>
+        // Check storage on load
+        checkStorage();
+
+        function checkStorage() {
+            const token = localStorage.getItem('jwtToken');
+            const role = localStorage.getItem('userRole');
+            const email = localStorage.getItem('userEmail');
+            
+            let html = '';
+            
+            // Token check
+            html += `
+                <div class="status">
+                    <span class="status-icon">${token ? '✅' : '❌'}</span>
+                    <span class="status-label">JWT Token:</span>
+                    <span class="status-value ${token ? 'success' : 'error'}">
+                        ${token ? token.substring(0, 50) + '...' : 'NOT FOUND'}
+                    </span>
+                </div>
+            `;
+            
+            // Role check
+            html += `
+                <div class="status">
+                    <span class="status-icon">${role ? '✅' : '❌'}</span>
+                    <span class="status-label">User Role:</span>
+                    <span class="status-value ${role ? 'success' : 'error'}">
+                        ${role || 'NOT FOUND'}
+                    </span>
+                </div>
+            `;
+            
+            // Email check
+            html += `
+                <div class="status">
+                    <span class="status-icon">${email ? '✅' : '❌'}</span>
+                    <span class="status-label">User Email:</span>
+                    <span class="status-value ${email ? 'success' : 'error'}">
+                        ${email || 'NOT FOUND'}
+                    </span>
+                </div>
+            `;
+            
+            // Admin check
+            const isAdmin = role && role.includes('ADMIN');
+            html += `
+                <div class="status">
+                    <span class="status-icon">${isAdmin ? '✅' : '❌'}</span>
+                    <span class="status-label">Is Admin:</span>
+                    <span class="status-value ${isAdmin ? 'success' : 'error'}">
+                        ${isAdmin ? 'YES' : 'NO'}
+                    </span>
+                </div>
+            `;
+            
+            document.getElementById('storageStatus').innerHTML = html;
+            
+            // Show recommendation
+            if (!token || !role || !isAdmin) {
+                document.getElementById('storageStatus').innerHTML += `
+                    <div class="alert error">
+                        <strong>❌ Problem Detected:</strong><br>
+                        ${!token ? '• JWT Token is missing<br>' : ''}
+                        ${!role ? '• User Role is missing<br>' : ''}
+                        ${role && !isAdmin ? '• User is not an admin<br>' : ''}
+                        <strong>Solution:</strong> Login again or use manual setup below.
+                    </div>
+                `;
+            } else {
+                document.getElementById('storageStatus').innerHTML += `
+                    <div class="alert success">
+                        <strong>✅ All Good!</strong> Your login credentials are stored correctly.
+                    </div>
+                `;
+            }
+        }
+
+        function clearStorage() {
+            if (confirm('Are you sure you want to clear all storage? You will need to login again.')) {
+                localStorage.clear();
+                alert('✅ Storage cleared!');
+                checkStorage();
+            }
+        }
+
+        async function testLogin() {
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+            
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            document.getElementById('loginResult').innerHTML = '<div class="alert info">🔄 Testing login...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:8081/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Login failed: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Login response:', data);
+                
+                // Save to localStorage
+                if (data.token) {
+                    localStorage.setItem('jwtToken', data.token);
+                }
+                if (data.role) {
+                    localStorage.setItem('userRole', data.role);
+                }
+                if (data.email) {
+                    localStorage.setItem('userEmail', data.email);
+                }
+                
+                document.getElementById('loginResult').innerHTML = `
+                    <div class="alert success">
+                        <strong>✅ Login Successful!</strong><br>
+                        Token: ${data.token ? data.token.substring(0, 30) + '...' : 'Not provided'}<br>
+                        Role: ${data.role || 'Not provided'}<br>
+                        Email: ${data.email || 'Not provided'}
+                    </div>
+                    <div class="code-block">${JSON.stringify(data, null, 2)}</div>
+                `;
+                
+                checkStorage();
+            } catch (error) {
+                document.getElementById('loginResult').innerHTML = `
+                    <div class="alert error">
+                        <strong>❌ Login Failed:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function setManualStorage() {
+            const token = document.getElementById('manualToken').value;
+            const role = document.getElementById('manualRole').value;
+            const email = document.getElementById('manualEmail').value;
+            
+            if (!token || !role) {
+                alert('Token and Role are required!');
+                return;
+            }
+            
+            localStorage.setItem('jwtToken', token);
+            localStorage.setItem('userRole', role);
+            if (email) {
+                localStorage.setItem('userEmail', email);
+            }
+            
+            alert('✅ Saved to localStorage!');
+            checkStorage();
+        }
+
+        async function testAPI() {
+            document.getElementById('apiResult').innerHTML = '<div class="alert info">🔄 Testing API...</div>';
+            
+            const token = localStorage.getItem('jwtToken');
+            
+            if (!token) {
+                document.getElementById('apiResult').innerHTML = '<div class="alert error">❌ No token found. Login first.</div>';
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8081/api/places', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const status = response.status;
+                let result = '';
+                
+                if (status === 200) {
+                    const data = await response.json();
+                    result = `
+                        <div class="alert success">
+                            <strong>✅ API Connection Successful!</strong><br>
+                            Status: ${status}<br>
+                            Places found: ${data.length}
+                        </div>
+                    `;
+                } else if (status === 403) {
+                    result = `
+                        <div class="alert error">
+                            <strong>❌ 403 Forbidden</strong><br>
+                            Your token is invalid or expired.<br>
+                            <strong>Solution:</strong> Login again to get a new token.
+                        </div>
+                    `;
+                } else if (status === 401) {
+                    result = `
+                        <div class="alert error">
+                            <strong>❌ 401 Unauthorized</strong><br>
+                            Authentication failed.<br>
+                            <strong>Solution:</strong> Check your token format.
+                        </div>
+                    `;
+                } else {
+                    result = `
+                        <div class="alert error">
+                            <strong>❌ API Error</strong><br>
+                            Status: ${status}<br>
+                            ${await response.text()}
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('apiResult').innerHTML = result;
+            } catch (error) {
+                document.getElementById('apiResult').innerHTML = `
+                    <div class="alert error">
+                        <strong>❌ Connection Failed:</strong><br>
+                        ${error.message}<br>
+                        Make sure backend is running on http://localhost:8081
+                    </div>
+                `;
+            }
+        }
+
+        function goToAdmin() {
+            window.location.href = '../html/admin.html';
+        }
+
+        function goToLogin() {
+            window.location.href = '../html/login.html';
+        }
+    </script>
+</body>
+</html>

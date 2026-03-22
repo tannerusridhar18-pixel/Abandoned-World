@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore | Abandoned World</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/explore.css">
+    <script defer src="../js/explore.js"></script>
+    <style>
+        body { margin: 0; background: #0a0a0a; color: #fff; font-family: system-ui, -apple-system, sans-serif; }
+        .page-loader { position: fixed; inset: 0; background: #0a0a0a; display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        .page-loader.hidden { display: none; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #333; border-top-color: #f5d742; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                <span class="logo-icon">🏚️</span>
+                <span class="logo-text">ABANDONED WORLD</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" class="nav-link"><span class="nav-icon">🏠</span><span>Home</span></a></li>
+                <li><a href="profile.html" class="nav-link"><span class="nav-icon">👤</span><span>Profile</span></a></li>
+            </ul>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="explore-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Explore the Unknown</h1>
+            <p class="hero-subtitle">Discover abandoned places across the world</p>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-header">
+                <h2>Find Your Next Adventure</h2>
+                <button class="clear-filters-btn" id="clearFilters" style="display: none;">Clear Filters</button>
+            </div>
+            <div class="filters-wrapper">
+                <div class="filter-group">
+                    <label for="exploreSearch">Search Places</label>
+                    <input type="text" id="exploreSearch" placeholder="Search by name or keyword..." autocomplete="off">
+                </div>
+                <div class="filter-group">
+                    <label for="exploreCategory">Category</label>
+                    <select id="exploreCategory">
+                        <option value="all">All Categories</option>
+                        <option value="Haunted Places">👻 Haunted Places</option>
+                        <option value="Abandoned Places">🏥 Abandoned Places</option>
+                        <option value="Historical Sites">🚇 Historical Sites</option>
+                        <option value="Lost cities">⚔️ Lost cities</option>
+                        <option value="Mysterious Places">🏝️ Mysterious Places</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortBy">Sort By</label>
+                    <select id="sortBy">
+                        <option value="default">Default</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                    </select>
+                </div>
+                <div class="filter-group view-group">
+                    <label>View</label>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid" title="Grid view">⊞</button>
+                        <button class="view-btn" data-view="list" title="List view">☰</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results-info">
+        <p>Showing <span id="resultsCount">0</span> places<span id="filterInfo"></span></p>
+    </section>
+
+    <section class="places-section">
+        <div class="places-grid" id="exploreGrid"></div>
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <h3>No Places Found</h3>
+            <p>Try adjusting your filters</p>
+            <button class="reset-btn" onclick="document.getElementById('clearFilters').click()">Reset Filters</button>
+        </div>
+    </section>
+
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">↑</button>
+
+    <div class="page-loader" id="pageLoader">
+        <div class="spinner"></div>
+    </div>
+
+</body>
+</html>

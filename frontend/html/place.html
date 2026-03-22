@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abandoned World — Place Details</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <link rel="stylesheet" href="../css/place.css"/>
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Loading -->
+    <div id="loading" class="loading-screen">
+      <div class="loading-logo">Abandoned <span>World</span></div>
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Retrieving coordinates…</div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="content" style="display:none;">
+
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="site-brand">Abandoned <span>World</span></div>
+        <a class="back-btn" href="javascript:history.back()">← Back</a>
+        <div class="breadcrumb">Field Report / Place Details</div>
+      </header>
+
+      <!-- Hero Image -->
+      <div class="hero-frame">
+        <div class="hero-corner hero-corner--tl"></div>
+        <div class="hero-corner hero-corner--tr"></div>
+        <div class="hero-corner hero-corner--bl"></div>
+        <div class="hero-corner hero-corner--br"></div>
+        <img id="placeImage" alt="">
+        <div class="hero-index" id="heroCoords"></div>
+      </div>
+
+      <!-- Title + Category + Favorite -->
+      <div class="place-header">
+        <div class="place-title-group">
+          <div class="place-eyebrow">Documented Location</div>
+          <div class="title-row">
+            <h1 class="place-title" id="placeName"></h1>
+            <span id="favoriteIcon" class="favorite-icon" title="Add to favorites">♡</span>
+          </div>
+        </div>
+        <div class="category-tag" id="placeCategory"></div>
+      </div>
+
+      <!-- Info Grid -->
+      <div class="info-grid">
+        <div class="info-cell">
+          <div class="info-label">Location</div>
+          <div class="info-value" id="placeLocation"></div>
+        </div>
+        <div class="info-cell">
+          <div class="info-label">Latitude</div>
+          <div class="info-value" id="placeLat"></div>
+        </div>
+        <div class="info-cell">
+          <div class="info-label">Longitude</div>
+          <div class="info-value" id="placeLng"></div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="description-section">
+        <div class="description-rule">
+          <div class="description-rule-dot"></div>
+          <div class="description-rule-line"></div>
+        </div>
+        <p class="description-body" id="placeDescription"></p>
+      </div>
+
+      <!-- Extra Gallery Images -->
+      <div id="place-gallery" style="display:flex; flex-wrap:wrap; gap:8px; padding:0 20px 20px;"></div>
+
+      <!-- Reviews Section -->
+      <div class="reviews-section">
+
+        <h2 class="reviews-title">Explorer Reviews</h2>
+
+        <div id="reviewsList"></div>
+
+        <div class="review-form">
+
+          <!-- Rating selector -->
+          <div style="margin-bottom: 10px;">
+            <label for="reviewRating" style="color:#ccc; font-size:14px;">Rating:</label>
+            <select id="reviewRating" style="background:#1a1a1a; color:#fff; border:1px solid #333; padding:6px 10px; border-radius:6px; margin-left:8px;">
+              <option value="0">☆ No rating</option>
+              <option value="1">★ 1 — Poor</option>
+              <option value="2">★★ 2 — Fair</option>
+              <option value="3">★★★ 3 — Good</option>
+              <option value="4">★★★★ 4 — Great</option>
+              <option value="5">★★★★★ 5 — Excellent</option>
+            </select>
+          </div>
+
+          <textarea id="reviewText" placeholder="Share your experience..."></textarea>
+
+          <button type="button" onclick="submitReview()">Submit Review</button>
+
+        </div>
+
+      </div>
+
+      <!-- Map -->
+      <div class="map-section">
+        <div class="map-section-header">
+  <span class="map-section-label">Terrain Map</span>
+  <div class="map-section-line"></div>
+
+  <button id="navigateBtn" class="navigate-btn">🧭 Navigate</button>
+</div>
+        <div class="map-frame">
+          <div id="map"></div>
+        </div>
+      </div>
+
+    </div><!-- /#content -->
+
+  </div><!-- /.page-wrapper -->
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="../js/place.js"></script>
+
+</body>
+</html>

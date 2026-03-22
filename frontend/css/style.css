@@ -1,0 +1,182 @@
+/* ====== Global Reset ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ====== Body Background ====== */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ====== Main Wrapper ====== */
+.wrapper {
+    width: 100%;
+}
+
+/* ====== Header ====== */
+.container header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container h1 {
+    color: #ffffff;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+
+/* ====== Card Layout ====== */
+.container1 {
+    display: flex;
+    justify-content: center;
+}
+
+.container2 {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    width: 420px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ====== Form Table ====== */
+table {
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+    color: #333;
+    font-size: 14px;
+}
+
+/* ====== Inputs ====== */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #6a11cb;
+    box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
+}
+
+/* ====== Buttons ====== */
+input[type="submit"],
+input[type="reset"] {
+    padding: 10px 22px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px;
+    transition: 0.3s;
+}
+
+/* Submit Button */
+input[type="submit"] {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #ffffff;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(37, 117, 252, 0.4);
+}
+
+/* Reset Button */
+input[type="reset"] {
+    background: #e0e0e0;
+}
+
+input[type="reset"]:hover {
+    background: #cfcfcf;
+}
+
+/* ====== Links ====== */
+p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+a {
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ====== Animation ====== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ===== Form Title inside white card ===== */
+.form-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: black;
+    letter-spacing: 1px;
+}
+button:disabled,
+input[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.message {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 15px;
+    min-height: 18px;
+}
+
+.message.error {
+    color: #e63946;
+}
+
+.message.success {
+    color: #2a9d8f;
+}
+/* ====== Body Background ====== */
+/*
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+*/
+body {
+    min-height: 100vh;
+    background: url("../images/img.jpg") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

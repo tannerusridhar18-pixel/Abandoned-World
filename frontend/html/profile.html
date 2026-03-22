@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Abandoned World</title>
+    <link rel="stylesheet" href="../css/profile.css">
+   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading your profile...</p>
+</div>
+
+<!-- MAIN WRAPPER -->
+<div class="profile-wrapper">
+
+    <!-- PROFILE HEADER -->
+    <div class="profile-header">
+
+        <div class="cover-photo" id="coverPhoto">
+            <input type="file" id="coverInput" hidden accept="image/*">
+            <button type="button" class="edit-cover-btn" onclick="document.getElementById('coverInput').click()">
+                <i class="fas fa-camera"></i> Change Cover
+            </button>
+        </div>
+
+        <div class="profile-card">
+
+            <div class="profile-photo-wrapper">
+                <img id="profileImage" src="../images/img.jpg" alt="Profile Image">
+                <input type="file" id="photoInput" hidden accept="image/*">
+                <div class="photo-overlay" onclick="document.getElementById('photoInput').click()">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <div class="online-badge" title="Online">
+                    <i class="fas fa-circle"></i>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div class="profile-header-top">
+                    <div class="user-details">
+                        <h1 id="username">Loading...</h1>
+                        <p class="user-handle" id="userHandle">@username</p>
+                        <p class="user-email" id="email"><i class="fas fa-envelope"></i> Loading...</p>
+                        <p class="join-date" id="joinDate"><i class="fas fa-calendar"></i> Member since...</p>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button type="button" class="btn-primary" onclick="openEditModal()">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </button>
+                        <button type="button" class="btn-secondary menu-toggle" id="menuIcon">
+                            <i class="fas fa-ellipsis-vertical"></i>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <div onclick="openPasswordModal()">
+                                <i class="fas fa-lock"></i> Change Password
+                            </div>
+                            <div onclick="openSettingsModal()">
+                                <i class="fas fa-cog"></i> Settings
+                            </div>
+                            <div class="divider"></div>
+                            <div onclick="exportData()">
+                                <i class="fas fa-download"></i> Export Data
+                            </div>
+                            <div onclick="logout()" class="danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="user-bio" id="bio">Loading bio...</p>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-star stat-icon"></i>
+                        <div>
+                            <span class="stat-value" id="reviewCount">0</span>
+                            <p class="stat-label">Reviews</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart stat-icon"></i>
+                        <div>
+                            <span class="stat-value" id="likesCount">0</span>
+                            <p class="stat-label">Likes</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-images stat-icon"></i>
+                        <div>
+                            <span class="stat-value" id="photosCount">0</span>
+                            <p class="stat-label">Photos</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-map-marker-alt stat-icon"></i>
+                        <div>
+                            <span class="stat-value" id="placesCount">0</span>
+                            <p class="stat-label">Places</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABS NAVIGATION -->
+    <div class="tabs-container">
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="reviews">
+                <i class="fas fa-comment"></i><span>My Reviews</span>
+            </button>
+            <button class="tab-btn" data-tab="activity">
+                <i class="fas fa-clock"></i><span>Activity</span>
+            </button>
+            <button class="tab-btn" data-tab="favorites">
+                <i class="fas fa-bookmark"></i><span>Favorites</span>
+            </button>
+            <button class="tab-btn" data-tab="photos">
+                <i class="fas fa-images"></i><span>Photos</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- TAB CONTENTS -->
+    <div class="tab-content-wrapper">
+
+        <div class="tab-content active" id="reviews">
+            <div class="content-header">
+                <div>
+                    <h2><i class="fas fa-comment"></i> My Reviews</h2>
+                    <p class="subtitle">All your reviews in one place</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchReviews" placeholder="Search reviews..." onkeyup="filterReviews()">
+                    </div>
+                    <select id="sortReviews" onchange="loadReviews()">
+                        <option value="recent">Most Recent</option>
+                        <option value="rating">Highest Rated</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+            </div>
+            <div id="reviewsContainer" class="reviews-grid">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="activity">
+            <div class="content-header">
+                <div>
+                    <h2><i class="fas fa-clock"></i> Recent Activity</h2>
+                    <p class="subtitle">Your recent actions and updates</p>
+                </div>
+            </div>
+            <div id="activityContainer" class="activity-timeline">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="favorites">
+            <div class="content-header">
+                <div>
+                    <h2><i class="fas fa-bookmark"></i> Favorite Places</h2>
+                    <p class="subtitle">Places you've bookmarked</p>
+                </div>
+            </div>
+            <div id="favoritesContainer" class="favorites-grid">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="photos">
+            <div class="content-header">
+                <div>
+                    <h2><i class="fas fa-images"></i> My Photos</h2>
+                    <p class="subtitle">All photos you've uploaded</p>
+                </div>
+            </div>
+            <div id="photosContainer" class="photos-grid">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div class="modal" id="editModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-edit"></i> Edit Profile</h3>
+            <button class="close-btn" onclick="closeEditModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="editName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="editUsername" placeholder="@username">
+            </div>
+            <div class="form-group">
+                <label>Bio</label>
+                <textarea id="editBio" placeholder="Tell us about yourself..." rows="4"></textarea>
+                <span class="char-count"><span id="bioCount">0</span>/500</span>
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" id="editLocation" placeholder="City, Country">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancel</button>
+            <button type="button" class="btn-primary" onclick="updateProfile()">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- CHANGE PASSWORD MODAL -->
+<div class="modal" id="passwordModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-lock"></i> Change Password</h3>
+            <button class="close-btn" onclick="closePasswordModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Current Password</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="currentPassword" placeholder="Enter current password">
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('currentPassword')"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="newPassword" placeholder="Enter new password">
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('newPassword')"></i>
+                </div>
+                <div class="password-strength" id="passwordStrength"></div>
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword')"></i>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closePasswordModal()">Cancel</button>
+            <button type="button" class="btn-primary" onclick="changePassword()">
+                <i class="fas fa-check"></i> Update Password
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal" id="settingsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-cog"></i> Settings</h3>
+            <button class="close-btn" onclick="closeSettingsModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="settings-section">
+                <h4>Privacy Settings</h4>
+                <div class="setting-item">
+                    <label class="switch-label">
+                        <span>Make profile public</span>
+                        <label class="switch">
+                            <input type="checkbox" id="profilePublic" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label class="switch-label">
+                        <span>Show email address</span>
+                        <label class="switch">
+                            <input type="checkbox" id="showEmail">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h4>Notifications</h4>
+                <div class="setting-item">
+                    <label class="switch-label">
+                        <span>Email notifications</span>
+                        <label class="switch">
+                            <input type="checkbox" id="emailNotifications" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label class="switch-label">
+                        <span>Review replies</span>
+                        <label class="switch">
+                            <input type="checkbox" id="reviewNotifications" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-section danger-zone">
+                <h4>Danger Zone</h4>
+                <button class="btn-danger" onclick="deleteAccount()">
+                    <i class="fas fa-trash"></i> Delete Account
+                </button>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeSettingsModal()">Close</button>
+            <button type="button" class="btn-primary" onclick="saveSettings()">
+                <i class="fas fa-save"></i> Save Settings
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">Action completed successfully</span>
+</div>
+
+<script src="../js/profile.js"></script>
+</body>
+</html>

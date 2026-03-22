@@ -1,0 +1,124 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Background */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Title */
+.title {
+    font-size: 2.5rem;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    text-align: center;
+    
+}
+
+.subtitle {
+    font-weight: 300;
+    /*margin-top: 23px;;*/
+    margin-bottom: 40px;
+    opacity: 0.9;
+    text-align: center;
+}
+
+/* Container */
+.interest-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    max-width: 900px;
+    width: 100%;
+}
+
+/* Cards */
+.interest-box {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.interest-box span {
+    display: block;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Emoji size */
+.interest-box {
+    font-size: 2.3rem;
+}
+
+/* Hover */
+.interest-box:hover {
+    transform: translateY(-10px) scale(1.03);
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* Active state */
+.interest-box.active {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    border-color: #00e5ff;
+    box-shadow: 0 15px 35px rgba(0, 229, 255, 0.5);
+    transform: scale(1.05);
+}
+
+/* Continue button */
+.continue-btn {
+    margin-top: 50px;
+    padding: 14px 45px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    border: none;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #777, #555);
+    color: #fff;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+/* Enabled state */
+.continue-btn.enabled {
+    cursor: pointer;
+    opacity: 1;
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    box-shadow: 0 10px 25px rgba(221, 36, 118, 0.5);
+}
+
+.continue-btn.enabled:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .title {
+        font-size: 2rem;
+    }
+}
+body {
+    min-height: 100vh;
+    background: url("../images/img.jpg") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
