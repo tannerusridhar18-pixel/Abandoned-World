@@ -202,7 +202,10 @@ function formatDate(dateString) {
 
 /* ================= LOADING STATE ================= */
 function showLoading() {
-    document.getElementById('loadingOverlay').classList.add('hidden');
+    const loader = document.getElementById('loadingOverlay');
+    if (loader) {
+        loader.classList.add('active');
+    }
 }
 
 function hideLoading() {
