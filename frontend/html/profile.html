@@ -5,16 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile | Abandoned World</title>
     <link rel="stylesheet" href="../css/profile.css">
-   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <!-- LOADING OVERLAY -->
-<div class="loading-overlay" id="loadingOverlay">
+<div class="loading-overlay hidden" id="loadingOverlay">
     <div class="spinner"></div>
     <p class="loading-text">Loading your profile...</p>
 </div>
@@ -25,12 +21,12 @@
     <!-- PROFILE HEADER -->
     <div class="profile-header">
 
-        <div class="cover-photo" id="coverPhoto">
-            <input type="file" id="coverInput" hidden accept="image/*">
-            <button type="button" class="edit-cover-btn" onclick="document.getElementById('coverInput').click()">
-                <i class="fas fa-camera"></i> Change Cover
+      <!-- <div class="cover-photo" id="coverPhoto">
+            <!--<input type="file" id="coverInput" hidden accept="image/*">
+            <!-- <button type="button" class="edit-cover-btn" onclick="document.getElementById('coverInput').click()"> 
+               <!-- <i class="fas fa-camera"></i> Change Cover
             </button>
-        </div>
+        </div>-->
 
         <div class="profile-card">
 

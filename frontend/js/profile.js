@@ -202,11 +202,23 @@ function formatDate(dateString) {
 
 /* ================= LOADING STATE ================= */
 function showLoading() {
-    document.getElementById('loadingOverlay').classList.add('active');
+    document.getElementById('loadingOverlay').classList.add('hidden');
 }
 
 function hideLoading() {
-    document.getElementById('loadingOverlay').classList.remove('active');
+    console.log("Loader hidden called");
+
+    const loader = document.getElementById('loadingOverlay');
+
+    if (loader) {
+        loader.classList.add('hidden');
+        setTimeout(() => {
+            loader.remove();
+        }, 300); 
+
+        // 🔥 FORCE FIX (important)
+        loader.style.display = "none";
+    }
 }
 
 /* ================= TOAST NOTIFICATIONS ================= */

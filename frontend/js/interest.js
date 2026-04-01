@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         box.addEventListener("click", function () {
 
             const value = box.getAttribute("data-value");
+
             box.classList.toggle("active");
 
             if (selectedInterests.includes(value)) {
@@ -39,7 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         fetch("http://localhost:8081/api/interests", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
                 email: email,
                 interests: selectedInterests
